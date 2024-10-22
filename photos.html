@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photos</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+      #photos {
+          display: flex;
+          flex-wrap: wrap;
+      }
+      #photos img {
+          max-width: 200px;
+          margin: 10px;
+          border: 1px solid #ccc;
+      }
+      footer {
+          margin-top: 20px;
+          font-size: 0.9em;
+          color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Envoyer une photo</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <label for="photo">Choisissez une photo à télécharger :</label>
+      <input type="file" id="photo" name="photo" accept="image/*" required />
+      <button type="submit" id="submit">Envoyer</button>
+    </form>
+
+    <h2>Photos téléchargées</h2>
+    <div id="photos"></div>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const fileInput = document.getElementById("photo");
+          const file = fileInput.files[0];
+          const formData = new FormData();
+          formData.append("photo", file);
+
+          // Remplacez l'URL ci-dessous par l'URL de votre endpoint pour le script Google Apps
+          fetch(
+            "https://script.google.com/macros/s/AKfycbyNe7iIZbxFyQQAJ-ZWaEl8KpG5VXwwR-tPR2agLdElv-_cR_CkW2PH0cpdU7o6AyAA4w/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert("Photo envoyée avec succès !");
+                loadPhotos();
+              } else {
+                alert("Échec de l’envoi de la photo.");
+              }
+            })
+            .catch((error) => console.error("Erreur :", error));
+        });
+
+      function loadPhotos() {
+        // Remplacez l'URL ci-dessous par l'URL de votre endpoint pour récupérer les données de Google Sheets
+        fetch("VOTRE_URL_DE_RETRAIT_DONNEES")
+          .then((response) => response.json())
+          .then((data) => {
+            const photosDiv = document.getElementById("photos");
+            photosDiv.innerHTML = ""; // Vider le contenu existant
+            data.photos.forEach((photoUrl) => {
+              const img = document.createElement("img");
+              img.src = photoUrl;
+              photosDiv.appendChild(img);
+            });
+          })
+          .catch((error) => console.error("Erreur :", error));
+      }
+
+      // Charger les photos lors du chargement de la page
+      window.onload = loadPhotos;
+    </script>
+  </body>
+</html>

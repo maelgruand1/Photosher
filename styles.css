@@ -1,0 +1,68 @@
+:root{
+    --colorHeader: black;
+    --background-color: linear-gradient(to right, red, orange);
+    --font: 'Montserrat', sans serif;
+    --boldito: bolder;
+    --fontSize: 25px;
+}
+
+h1.title{
+    color: red;
+}
+header{
+    background-color: var(--colorHeader);
+    text-align: center;
+    padding: 15px;
+    border: solid, 2.5px, whitesmoke;
+    border-radius: 30px;
+}
+.title::selection{
+    color: blue;
+}
+.title:hover{
+    color: orange;
+    text-decoration: underline;
+}
+body{
+    background-image: var(--background-color);
+}
+button.nav{
+    justify-content: left;
+    position: relative;
+    left: -780px;
+    top: -45px;
+    bottom: auto;
+    background-color: orange;
+    border: solid, 0px;
+    border-radius: 20px;
+    padding: 15px;
+    color: white;
+
+}
+button.nav1{
+    position: relative;
+    left: -770px;
+    top: -45px;
+    bottom: auto;
+    background-color: orange;
+    color: white;
+    border: solid, 0px;
+    border-radius: 20px;
+    padding: 15px;
+}
+button.sub{
+    position: relative;
+    left: 780px;
+    top: -45px;
+    bottom: auto;
+    background-color: orange;
+    border: solid, 0px;
+    border-radius: 20px;
+    padding: 15px;
+    color: white;
+}
+p.details{
+    color: black;
+    font-weight: var(--boldito);
+    font-size: var(--fontSize); 
+}
